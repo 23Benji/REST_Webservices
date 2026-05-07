@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <span>Movie App</span>
+  <span style="flex: 1 1 auto;"></span> <span *ngIf="authService.isLoggedIn()" style="margin-right: 15px; font-size: 14px;">
+    Angemeldet als: {{ authService.getCurrentUser() }}
+  </span>
+
+  <button mat-raised-button *ngIf="!authService.isLoggedIn()" (click)="openLogin()">
+    Login
+  </button>
+
+  <button mat-raised-button color="warn" *ngIf="authService.isLoggedIn()" (click)="logout()">
+    Logout
+  </button>
+</mat-toolbar>
+
+<div style="padding: 20px;">
+  <app-movie-list></app-movie-list>
+</div>

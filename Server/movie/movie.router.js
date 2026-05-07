@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { expressjwt } = require("express-jwt");
 const {
   listAction,
   viewAction,
@@ -7,13 +8,28 @@ const {
   updateAction,
   deleteAction,
   clearAction,
-} = require('./movie.controller');
+  loginAction,
+  publishedAction,
+  importAction
+} = require("./movie.controller");
 
-router.delete('/clear', clearAction);
-router.get('/', listAction);
-router.get('/:id',viewAction);
-router.post('/', insertAction);
-router.put('/:id', updateAction);
-router.delete('/:id', deleteAction);
+const PASSWORD = "secret";
+const ALGORITHM = "HS256";
+
+const checkAuth = expressjwt({ secret: PASSWORD, algorithms: [ALGORITHM] });
+
+// --- ÖFFENTLICHE ROUTEN ---
+// WICHTIG: Die Schrägstriche bei /login und /published wurden hinzugefügt!
+router.post('/login', loginAction);
+router.get('/published', publishedAction);
+
+// --- GESCHÜTZTE ROUTEN ---
+router.delete("/clear", checkAuth, clearAction);
+router.post("/import", checkAuth, importAction); // <-- Dieser Endpunkt fehlte für Aufgabe 3! 
+router.get("/", checkAuth, listAction);
+router.get("/:id", checkAuth, viewAction);
+router.post("/", checkAuth, insertAction);
+router.put("/:id", checkAuth, updateAction);
+router.delete("/:id", checkAuth, deleteAction);
 
 module.exports = router;

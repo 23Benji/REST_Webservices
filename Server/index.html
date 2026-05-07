@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie REST Client</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        div { margin-bottom: 10px; }
+        button { margin-right: 5px; padding: 5px 10px; cursor: pointer; }
+        hr { margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h2>Filme verwalten (jQuery Client)</h2>
+    
+    <div>
+        <label for="title">Titel: </label>
+        <input id="title" type="text">
+    </div>
+    <div>
+        <label for="year">Jahr:</label>
+        <input id="year" type="number">
+    </div>
+    <div>
+        <label for="published">Öffentlich:</label>
+        <input id="published" type="checkbox">
+    </div>
+    <button id="insert" type="button">Hinzufügen</button>
+    
+    <hr>
+    
+    <button id="asc" type="button">Liste aufsteigend sortiert</button>
+    <button id="desc" type="button">Liste absteigend sortiert</button>
+    
+    <hr>
+    
+    <div>
+        <label for="deleteId">Id zum Löschen: </label>
+        <input id="deleteId" type="number" style="width: 50px;">
+        <button id="delete" type="button">Löschen</button>
+        <button id="clear" type="button">Alle meine Filme löschen</button>
+    </div>
+    
+    <h3>Ergebnis:</h3>
+    <div id="output"></div>
+
+    <script>
+        // Klasse zur Strukturierung der Filmdaten
+        class Movie {
+            constructor(id = null, title = null, year = null, published = null, owner = null, fullname = null) {
+                this.id = id; 
+                this.title = title; 
+                this.year = year;
+                this.published = published;
+                this.owner = owner;
+                this.fullname = fullname;
+            }
+            toString() {
+                return `${this.id}. ${this.title}, ${this.year}, ${this.published ? 'Öffentlich' : 'Privat'}, ${this.fullname}`;
+            }
+        }
+
+        $(document).ready(function() {
+            // Da Client und Server auf dem gleichen Port laufen, reicht der relative Pfad
+            const BASE_URL = "/movie"; 
+
+            // Liste laden (Aufsteigend / Absteigend)
+            $("#asc, #desc").click(function() {
+                $("#output").empty();
+                $.ajax({
+                    url: BASE_URL + "?sort=" + $(this).attr("id"),
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        $.each(data, function(i, datal) {
+                            let movie = Object.assign(new Movie(), datal);
+                            $("#output").append($("<p>").text(movie.toString()));
+                        });
+                    },
+                    error: function (error) {
+                        $("#output").append($("<p>").text("Fehler: " + (error.responseJSON || error.responseText)));
+                    }
+                });
+            });
+
+            // Film hinzufügen
+            $("#insert").click(function() {
+                $("#output").empty();
+                const movie = new Movie(
+                    -1, 
+                    $("#title").val(), 
+                    $("#year").val(),
+                    $("#published").is(":checked"), 
+                    "sepp"
+                );
+
+                $.ajax({
+                    url: BASE_URL,
+                    type: "POST",
+                    data: JSON.stringify(movie),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(data) {
+                        let newMovie = Object.assign(new Movie(), data);
+                        $("#output").append($("<p>").text("Erfolgreich hinzugefügt: " + newMovie.toString()));
+                    },
+                    error: function(error) {
+                        $("#output").append($("<p>").text("Fehler: " + (error.responseJSON || error.responseText)));
+                    }
+                });
+            });
+
+            // Einzelnen Film löschen
+            $("#delete").click(function() {
+                $("#output").empty();
+                const id = $("#deleteId").val();
+                if(!id) return alert("Bitte eine ID eingeben!");
+
+                $.ajax({
+                    url: BASE_URL + "/" + id,
+                    type: "DELETE",
+                    success: function() {
+                        $("#output").append($("<p>").text("Film mit ID " + id + " wurde erfolgreich gelöscht."));
+                    },
+                    error: function(error) {
+                        $("#output").append($("<p>").text("Fehler: " + (error.responseJSON || error.responseText)));
+                    }
+                });
+            });
+
+            // Alle Filme des Benutzers löschen
+            $("#clear").click(function() {
+                $("#output").empty();
+                $.ajax({
+                    url: BASE_URL + "/clear",
+                    type: "DELETE",
+                    success: function() {
+                        $("#output").append($("<p>").text("Alle deine Filme wurden gelöscht."));
+                    },
+                    error: function(error) {
+                        $("#output").append($("<p>").text("Fehler: " + (error.responseJSON || error.responseText)));
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

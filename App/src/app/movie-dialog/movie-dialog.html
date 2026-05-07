@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Film ändern' : 'Neuen Film anlegen' }}</h2>
+
+<mat-dialog-content>
+  <mat-form-field appearance="fill" style="width: 100%; margin-top: 10px;" *ngIf="isEditMode">
+    <mat-label>ID</mat-label>
+    <input matInput type="number" [(ngModel)]="movieData.id" name="id">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" style="width: 100%; margin-top: 10px;">
+    <mat-label>Titel</mat-label>
+    <input matInput [(ngModel)]="movieData.title" name="title" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>Jahr</mat-label>
+    <input matInput type="number" [(ngModel)]="movieData.year" name="year" required>
+  </mat-form-field>
+
+  <div style="margin-top: 10px; margin-bottom: 10px;">
+    <mat-checkbox [(ngModel)]="movieData.published" name="published">Veröffentlicht</mat-checkbox>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button color="warn" *ngIf="isEditMode" (click)="deleteMovie()" style="margin-right: auto;">Löschen</button>
+
+  <button mat-button (click)="cancel()">Abbrechen</button>
+  <button mat-raised-button color="primary" (click)="save()" [disabled]="!movieData.title || !movieData.year">Speichern</button>
+</mat-dialog-actions>
