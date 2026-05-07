@@ -30,11 +30,45 @@ function publishedAction(request, response) {
         .catch(error => response.status(error === 'Database error' ? 500 : 400).json(error));
 }
 
-// --- NEU: Filme Importieren ---
+// --- NEU: Filme Importieren (Komplette Logik) ---
 function importAction(request, response) {
-    // Hier kommt später die Logik für den Datei-Upload (Phase 4)
-    // Vorerst schicken wir nur einen leeren 200 OK Status zurück [cite: 874]
-    response.status(200).send();
+    const moviesToImport = request.body;
+    
+    // Prüfen, ob es ein gültiges Array ist
+    if (!Array.isArray(moviesToImport)) {
+        return response.status(400).send('wrong JSON-Format'); // 
+    }
+
+    // Für jeden Film im Array einen Insert-Befehl vorbereiten
+    let importPromises = moviesToImport.map(movieData => {
+        const movie = {
+            id: -1,
+            title: movieData.title,
+            year: parseInt(movieData.year, 10),
+            published: false, // Importierte Filme werden NICHT veröffentlicht 
+            owner: request.auth.username
+        };
+
+        return movieModel.insert(movie, request.auth.username)
+            .catch(err => {
+                if (err === 'Title exists') {
+                    // Spezielle Fehlermeldung laut Aufgabe 
+                    return Promise.reject(`Movie exists ${movie.title}`);
+                }
+                return Promise.reject(err);
+            });
+    });
+
+    // Alle Filme speichern und entsprechend antworten
+    Promise.all(importPromises)
+        .then(() => response.status(200).send())
+        .catch(error => {
+            if (typeof error === 'string' && error.startsWith('Movie exists')) {
+                response.status(400).send(error); // 
+            } else {
+                response.status(500).send('Database error'); // 
+            }
+        });
 }
 
 // --- ANGEPASSTE AKTIONEN (Nutzen request.auth.username) ---

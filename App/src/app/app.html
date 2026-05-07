@@ -7,7 +7,16 @@
   <button mat-raised-button *ngIf="!authService.isLoggedIn()" (click)="openLogin()">
     Login
   </button>
+  <button mat-raised-button *ngIf="authService.isLoggedIn()" (click)="openImportDialog()" style="margin-right: 10px;">
+    Importieren
+  </button>
+  <button mat-raised-button color="accent" *ngIf="authService.isLoggedIn()" (click)="openAddDialog()" style="margin-right: 10px;">
+    Neu
+  </button>
 
+  <button mat-raised-button color="warn" *ngIf="authService.isLoggedIn()" (click)="openClearDialog()" style="margin-right: 10px;">
+    Alle löschen
+  </button>
   <button mat-raised-button color="warn" *ngIf="authService.isLoggedIn()" (click)="logout()">
     Logout
   </button>

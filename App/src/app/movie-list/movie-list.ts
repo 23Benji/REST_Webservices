@@ -5,34 +5,50 @@ import { JwtAuthService } from '../jwt-auth.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MovieDialogComponent } from '../movie-dialog/movie-dialog';
 
 @Component({
   selector: 'app-movie-list',
   standalone: true,
-  // MatCardModule gibt uns schöne, mehrzeilige "Karten" für jeden Film
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatDialogModule],
   templateUrl: './movie-list.html',
   styleUrl: './movie-list.scss'
 })
 export class MovieListComponent implements OnInit {
   movies: Movie[] = [];
-  currentSort: string = 'asc'; // Standardmäßig aufsteigend
+  currentSort: string = 'asc';
 
-  constructor(private movieService: MovieService, public authService: JwtAuthService) {}
+  constructor(
+    private movieService: MovieService,
+    public authService: JwtAuthService,
+    private dialog: MatDialog // Dialog-Service injiziert
+  ) {}
 
-  // Wird automatisch beim Start der Komponente aufgerufen
   ngOnInit() {
     this.loadMovies();
   }
 
-  // Lädt die Filme vom Server [cite: 862, 863]
   loadMovies(sort: string = this.currentSort) {
     this.currentSort = sort;
     this.movieService.getMovies(this.currentSort).subscribe({
-      next: (data) => {
-        this.movies = data;
-      },
+      next: (data) => this.movies = data,
       error: (err) => console.error('Fehler beim Laden der Filme', err)
+    });
+  }
+
+  openEditDialog(movie: Movie) {
+    const dialogRef = this.dialog.open(MovieDialogComponent, {
+      width: '400px',
+      data: { movie: movie } // Übergebe den Film an den Dialog
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result?.action === 'save') {
+        this.movieService.updateMovie(movie.id, result.movie).subscribe(() => this.loadMovies());
+      } else if (result?.action === 'delete') {
+        this.movieService.deleteMovie(movie.id).subscribe(() => this.loadMovies());
+      }
     });
   }
 }

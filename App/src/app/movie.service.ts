@@ -50,4 +50,9 @@ export class MovieService {
   clearMovies(): Observable<void> {
     return this.http.delete<void>(`${URL}/clear`);
   }
+
+  // 5. Filme importieren (POST)
+  importMovies(movies: any[]): Observable<void> {
+    return this.http.post<void>(`${URL}/import`, movies);
+  }
 }

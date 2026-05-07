@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Filme importieren</h2>
+
+<mat-dialog-content>
+  <div style="margin: 20px 0;">
+    <button mat-stroked-button color="primary" (click)="fileInput.click()">Datei wählen</button>
+    <input hidden (change)="onFileSelected($event)" #fileInput type="file" accept=".txt,.json">
+    <span style="margin-left: 10px;" *ngIf="selectedFile">Gewählte Datei: {{selectedFile.name}}</span>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Abbrechen</button>
+  <button mat-raised-button color="primary" [disabled]="!selectedFile" (click)="importFile()">Importieren</button>
+</mat-dialog-actions>

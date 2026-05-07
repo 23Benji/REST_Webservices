@@ -1,7 +1,9 @@
 <div style="margin-bottom: 20px;">
   <span style="margin-right: 15px; font-weight: bold;">Sortierung:</span>
-  <button mat-stroked-button (click)="loadMovies('asc')" [color]="currentSort === 'asc' ? 'primary' : ''">Aufsteigend</button>
-  <button mat-stroked-button (click)="loadMovies('desc')" [color]="currentSort === 'desc' ? 'primary' : ''" style="margin-left: 10px;">Absteigend</button>
+  <button mat-stroked-button (click)="loadMovies('asc')"
+    [color]="currentSort === 'asc' ? 'primary' : ''">Aufsteigend</button>
+  <button mat-stroked-button (click)="loadMovies('desc')" [color]="currentSort === 'desc' ? 'primary' : ''"
+    style="margin-left: 10px;">Absteigend</button>
 </div>
 
 <p *ngIf="movies.length === 0">Keine Filme gefunden.</p>
@@ -16,7 +18,7 @@
     </mat-card-header>
 
     <mat-card-actions *ngIf="authService.isLoggedIn() && authService.getCurrentUser() === movie.owner">
-      <button mat-button color="primary">Ändern</button>
+      <button mat-button color="primary" (click)="openEditDialog(movie)">Ändern</button>
       <button mat-button color="warn">Löschen</button>
     </mat-card-actions>
   </mat-card>
