@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { JwtAuthService } from '../jwt-auth.service';
+import { JwtAuthService } from '../services/jwt-auth.service';
 
 @Component({
   selector: 'app-login-dialog',

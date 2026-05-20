@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MovieService, Movie } from '../movie.service';
-import { JwtAuthService } from '../jwt-auth.service';
+import { MovieService, Movie } from '../services/movie.service';
+import { JwtAuthService } from '../services/jwt-auth.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,7 +22,7 @@ export class MovieListComponent implements OnInit {
   constructor(
     private movieService: MovieService,
     public authService: JwtAuthService,
-    private dialog: MatDialog // Dialog-Service injiziert
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -40,7 +40,7 @@ export class MovieListComponent implements OnInit {
   openEditDialog(movie: Movie) {
     const dialogRef = this.dialog.open(MovieDialogComponent, {
       width: '400px',
-      data: { movie: movie } // Übergebe den Film an den Dialog
+      data: { movie: movie }
     });
 
     dialogRef.afterClosed().subscribe(result => {

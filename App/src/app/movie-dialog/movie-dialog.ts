@@ -6,8 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIconModule } from '@angular/material/icon'; // Hinzugefügt
-import { Movie } from '../movie.service';
+import { MatIconModule } from '@angular/material/icon';
+import { Movie } from '../services/movie.service';
 
 @Component({
   selector: 'app-movie-dialog',
