@@ -1,14 +1,23 @@
-<h2 mat-dialog-title>Filme importieren</h2>
+<div class="dialog-header center">
+  <div class="icon-circle">
+    <mat-icon>cloud_upload</mat-icon>
+  </div>
+  <h2 mat-dialog-title>Filme importieren</h2>
+</div>
 
 <mat-dialog-content>
-  <div style="margin: 20px 0;">
-    <button mat-stroked-button color="primary" (click)="fileInput.click()">Datei wählen</button>
+  <div class="upload-zone" (click)="fileInput.click()" [class.has-file]="selectedFile">
+    <mat-icon class="upload-icon">{{ selectedFile ? 'task' : 'note_add' }}</mat-icon>
+    <div class="upload-text">
+      <span *ngIf="!selectedFile">Klicken, um .txt oder .json Datei auszuwählen</span>
+      <span *ngIf="selectedFile" class="file-name">{{ selectedFile.name }}</span>
+    </div>
     <input hidden (change)="onFileSelected($event)" #fileInput type="file" accept=".txt,.json">
-    <span style="margin-left: 10px;" *ngIf="selectedFile">Gewählte Datei: {{selectedFile.name}}</span>
   </div>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-button (click)="cancel()">Abbrechen</button>
-  <button mat-raised-button color="primary" [disabled]="!selectedFile" (click)="importFile()">Importieren</button>
+<mat-dialog-actions align="center" class="dialog-footer">
+  <button mat-button class="text-muted" (click)="cancel()">Abbrechen</button>
+  <button mat-flat-button class="action-btn primary" [disabled]="!selectedFile"
+    (click)="importFile()">Importieren</button>
 </mat-dialog-actions>

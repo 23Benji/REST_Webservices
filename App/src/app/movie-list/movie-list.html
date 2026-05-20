@@ -1,25 +1,48 @@
-<div style="margin-bottom: 20px;">
-  <span style="margin-right: 15px; font-weight: bold;">Sortierung:</span>
-  <button mat-stroked-button (click)="loadMovies('asc')"
-    [color]="currentSort === 'asc' ? 'primary' : ''">Aufsteigend</button>
-  <button mat-stroked-button (click)="loadMovies('desc')" [color]="currentSort === 'desc' ? 'primary' : ''"
-    style="margin-left: 10px;">Absteigend</button>
+<div class="view-header">
+  <div class="sort-controls">
+    <button class="sort-btn" (click)="loadMovies('asc')" [class.active]="currentSort === 'asc'">
+      <mat-icon>arrow_downward</mat-icon> A-Z
+    </button>
+    <button class="sort-btn" (click)="loadMovies('desc')" [class.active]="currentSort === 'desc'">
+      <mat-icon>arrow_upward</mat-icon> Z-A
+    </button>
+  </div>
 </div>
 
-<p *ngIf="movies.length === 0">Keine Filme gefunden.</p>
+<div class="empty-state" *ngIf="movies.length === 0">
+  <mat-icon class="empty-icon">theaters</mat-icon>
+  <h2>Keine Filme gefunden</h2>
+  <p>Die Mediathek ist derzeit leer.</p>
+</div>
 
-<div *ngFor="let movie of movies" style="margin-bottom: 15px; max-width: 600px;">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>{{ movie.id }}. {{ movie.title }} ({{ movie.year }})</mat-card-title>
-      <mat-card-subtitle>
-        {{ movie.published ? 'Öffentlich' : 'Privat' }} von {{ movie.fullname }}
-      </mat-card-subtitle>
-    </mat-card-header>
+<div class="movie-grid" *ngIf="movies.length > 0">
+  <div class="movie-card" *ngFor="let movie of movies"
+    [class.is-owner]="authService.isLoggedIn() && authService.getCurrentUser() === movie.owner">
 
-    <mat-card-actions *ngIf="authService.isLoggedIn() && authService.getCurrentUser() === movie.owner">
-      <button mat-button color="primary" (click)="openEditDialog(movie)">Ändern</button>
-      <button mat-button color="warn">Löschen</button>
-    </mat-card-actions>
-  </mat-card>
+    <div class="card-glow"></div>
+
+    <div class="card-content">
+      <div class="card-header">
+        <span class="year-badge">{{ movie.year }}</span>
+        <div class="status-indicator" [class.published]="movie.published"
+          [title]="movie.published ? 'Öffentlich' : 'Privat'"></div>
+      </div>
+
+      <h3 class="movie-title">{{ movie.title }}</h3>
+
+      <div class="card-footer">
+        <div class="owner-info">
+          <mat-icon>account_circle</mat-icon>
+          <span>{{ movie.fullname }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-layer" *ngIf="authService.isLoggedIn() && authService.getCurrentUser() === movie.owner">
+      <button mat-fab class="edit-fab" color="primary" (click)="openEditDialog(movie)" title="Bearbeiten">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+
+  </div>
 </div>

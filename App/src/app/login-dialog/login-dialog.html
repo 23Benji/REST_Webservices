@@ -1,20 +1,29 @@
-<h2 mat-dialog-title>Login</h2>
+<div class="dialog-header center">
+  <div class="icon-circle">
+    <mat-icon>lock_person</mat-icon>
+  </div>
+  <h2 mat-dialog-title>Login</h2>
+  <p class="subtitle">Bitte logge dich in dein Profil ein</p>
+</div>
 
 <mat-dialog-content>
-  <p *ngIf="errorMessage" style="color: red;">{{errorMessage}}</p>
+  <div class="error-banner" *ngIf="errorMessage">
+    <mat-icon>error_outline</mat-icon>
+    <span>{{errorMessage}}</span>
+  </div>
 
-  <mat-form-field appearance="fill" style="width: 100%; margin-top: 10px;">
+  <mat-form-field appearance="fill" class="premium-input">
     <mat-label>Benutzername</mat-label>
     <input matInput [(ngModel)]="username" name="username">
   </mat-form-field>
 
-  <mat-form-field appearance="fill" style="width: 100%;">
+  <mat-form-field appearance="fill" class="premium-input">
     <mat-label>Passwort</mat-label>
     <input matInput type="password" [(ngModel)]="password" name="password">
   </mat-form-field>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-button (click)="cancel()">Abbrechen</button>
-  <button mat-raised-button color="primary" (click)="login()" [disabled]="!username || !password">Login</button>
+<mat-dialog-actions align="center" class="dialog-footer vertical">
+  <button mat-flat-button class="action-btn primary full-width" (click)="login()" [disabled]="!username || !password">Login</button>
+  <button mat-button class="action-btn text-muted full-width" (click)="cancel()">Abbrechen</button>
 </mat-dialog-actions>

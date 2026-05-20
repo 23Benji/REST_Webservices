@@ -1,0 +1,66 @@
+.dialog-header.left-aligned {
+  padding: 30px 24px 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-icon {
+  color: var(--accent-primary);
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+h2[mat-dialog-title] {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+}
+
+.premium-input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.id-field {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.toggle-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+.dialog-footer {
+  padding: 15px 24px 24px;
+}
+
+.action-btn {
+  padding: 0 25px !important;
+  border-radius: 8px !important;
+}
+
+.action-btn.primary {
+  background: var(--accent-primary) !important;
+  color: white !important;
+}
+
+.danger-btn {
+  background: rgba(255, 68, 68, 0.1) !important;
+  color: #ff4444 !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}

@@ -1,0 +1,85 @@
+.dialog-header {
+  padding: 30px 24px 10px;
+  text-align: center;
+}
+
+.icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(229, 9, 20, 0.1);
+  color: var(--accent-primary);
+  margin-bottom: 15px;
+
+  mat-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+h2[mat-dialog-title] {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 300;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  margin-top: 5px;
+  font-size: 0.9rem;
+}
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 68, 68, 0.1);
+  border: 1px solid rgba(255, 68, 68, 0.3);
+  color: #ff4444;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+
+  /* Sauberes SCSS-Nesting für das Icon */
+  mat-icon {
+    flex: 0 0 auto; /* Verhindert das Schrumpfen (flex-shrink: 0) */
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.premium-input {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.dialog-footer.vertical {
+  flex-direction: column;
+  padding: 10px 24px 30px;
+  gap: 10px;
+}
+
+.full-width {
+  width: 100%;
+  margin: 0 !important;
+}
+
+.action-btn {
+  padding: 24px 0 !important;
+  font-size: 1rem !important;
+  border-radius: 12px !important;
+}
+
+.action-btn.primary {
+  background: var(--accent-primary) !important;
+  color: white !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}

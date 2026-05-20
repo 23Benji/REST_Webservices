@@ -1,0 +1,112 @@
+.premium-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  height: 70px;
+  padding: 0 4%;
+  background: rgba(5, 5, 7, 0.7);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .brand-icon {
+    color: var(--accent-primary);
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .brand-text {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: var(--text-main);
+
+    .accent {
+      color: var(--accent-primary);
+    }
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border: 1px solid var(--glass-border);
+  margin-right: 10px;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.nav-btn {
+  color: var(--text-main) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  transition: var(--transition-smooth) !important;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: var(--text-main) !important;
+    transform: translateY(-2px);
+  }
+
+  &.danger:hover {
+    color: #ff4444 !important;
+  }
+
+  &.logout:hover {
+    color: var(--accent-primary) !important;
+  }
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background-color: var(--glass-border);
+  margin: 0 8px;
+}
+
+.login-btn {
+  background-color: var(--accent-primary) !important;
+  color: white !important;
+  padding: 0 24px !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  transition: transform 0.2s !important;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--accent-glow);
+  }
+}
+
+.main-content {
+  min-height: calc(100vh - 70px);
+}

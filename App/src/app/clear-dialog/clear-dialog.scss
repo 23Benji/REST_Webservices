@@ -1,0 +1,64 @@
+.dialog-header.center {
+  padding: 30px 24px 10px;
+  text-align: center;
+}
+
+.icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255, 68, 68, 0.1);
+  color: #ff4444;
+  margin-bottom: 15px;
+}
+
+.icon-circle mat-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+}
+
+h2[mat-dialog-title] {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #ff4444 !important;
+}
+
+.center-content {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.center-content p {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.sub-warning {
+  color: var(--text-muted);
+  font-size: 0.85rem !important;
+}
+
+.dialog-footer {
+  padding: 15px 24px 30px;
+  gap: 10px;
+  justify-content: center;
+}
+
+.action-btn {
+  padding: 0 25px !important;
+  border-radius: 8px !important;
+}
+
+.danger-solid {
+  background: #ff4444 !important;
+  color: white !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}

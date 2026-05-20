@@ -1,27 +1,42 @@
-<mat-toolbar color="primary">
-  <span>Movie App</span>
-  <span style="flex: 1 1 auto;"></span> <span *ngIf="authService.isLoggedIn()" style="margin-right: 15px; font-size: 14px;">
-    Angemeldet als: {{ authService.getCurrentUser() }}
-  </span>
+<header class="premium-header">
+  <div class="brand">
+    <mat-icon class="brand-icon">movie_filter</mat-icon>
+    <span class="brand-text">MOVIE<span class="accent">.</span>PRO</span>
+  </div>
 
-  <button mat-raised-button *ngIf="!authService.isLoggedIn()" (click)="openLogin()">
-    Login
-  </button>
-  <button mat-raised-button *ngIf="authService.isLoggedIn()" (click)="openImportDialog()" style="margin-right: 10px;">
-    Importieren
-  </button>
-  <button mat-raised-button color="accent" *ngIf="authService.isLoggedIn()" (click)="openAddDialog()" style="margin-right: 10px;">
-    Neu
-  </button>
+  <div class="spacer"></div>
 
-  <button mat-raised-button color="warn" *ngIf="authService.isLoggedIn()" (click)="openClearDialog()" style="margin-right: 10px;">
-    Alle löschen
-  </button>
-  <button mat-raised-button color="warn" *ngIf="authService.isLoggedIn()" (click)="logout()">
-    Logout
-  </button>
-</mat-toolbar>
+  <div class="nav-actions">
+    <div class="user-chip" *ngIf="authService.isLoggedIn()">
+      <mat-icon>person</mat-icon>
+      <span>{{ authService.getCurrentUser() }}</span>
+    </div>
 
-<div style="padding: 20px;">
+    <button mat-icon-button class="nav-btn" *ngIf="authService.isLoggedIn()" (click)="openAddDialog()"
+      title="Neuer Film">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-icon-button class="nav-btn" *ngIf="authService.isLoggedIn()" (click)="openImportDialog()"
+      title="Importieren">
+      <mat-icon>file_upload</mat-icon>
+    </button>
+    <button mat-icon-button class="nav-btn danger" *ngIf="authService.isLoggedIn()" (click)="openClearDialog()"
+      title="Alle löschen">
+      <mat-icon>delete_sweep</mat-icon>
+    </button>
+
+    <div class="divider" *ngIf="authService.isLoggedIn()"></div>
+
+    <button mat-icon-button class="nav-btn logout" *ngIf="authService.isLoggedIn()" (click)="logout()" title="Logout">
+      <mat-icon>power_settings_new</mat-icon>
+    </button>
+
+    <button mat-flat-button class="login-btn" *ngIf="!authService.isLoggedIn()" (click)="openLogin()">
+      Login
+    </button>
+  </div>
+</header>
+
+<main class="main-content">
   <app-movie-list></app-movie-list>
-</div>
+</main>

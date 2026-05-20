@@ -1,29 +1,39 @@
-<h2 mat-dialog-title>{{ isEditMode ? 'Film ändern' : 'Neuen Film anlegen' }}</h2>
+<div class="dialog-header left-aligned">
+  <mat-icon class="header-icon">{{ isEditMode ? 'edit_square' : 'add_circle' }}</mat-icon>
+  <h2 mat-dialog-title>{{ isEditMode ? 'Film ändern' : 'Neuen Film anlegen' }}</h2>
+</div>
 
 <mat-dialog-content>
-  <mat-form-field appearance="fill" style="width: 100%; margin-top: 10px;" *ngIf="isEditMode">
-    <mat-label>ID</mat-label>
-    <input matInput type="number" [(ngModel)]="movieData.id" name="id">
-  </mat-form-field>
+  <div class="form-grid">
+    <mat-form-field appearance="fill" class="premium-input id-field" *ngIf="isEditMode">
+      <mat-label>ID</mat-label>
+      <input matInput type="number" [(ngModel)]="movieData.id" name="id" readonly>
+      <mat-icon matSuffix>lock</mat-icon>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill" style="width: 100%; margin-top: 10px;">
-    <mat-label>Titel</mat-label>
-    <input matInput [(ngModel)]="movieData.title" name="title" required>
-  </mat-form-field>
+    <mat-form-field appearance="fill" class="premium-input">
+      <mat-label>Titel</mat-label>
+      <input matInput [(ngModel)]="movieData.title" name="title" required>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill" style="width: 100%;">
-    <mat-label>Jahr</mat-label>
-    <input matInput type="number" [(ngModel)]="movieData.year" name="year" required>
-  </mat-form-field>
+    <mat-form-field appearance="fill" class="premium-input">
+      <mat-label>Jahr</mat-label>
+      <input matInput type="number" [(ngModel)]="movieData.year" name="year" required>
+    </mat-form-field>
 
-  <div style="margin-top: 10px; margin-bottom: 10px;">
-    <mat-checkbox [(ngModel)]="movieData.published" name="published">Veröffentlicht</mat-checkbox>
+    <div class="toggle-box">
+      <mat-checkbox [(ngModel)]="movieData.published" name="published" color="primary">Veröffentlicht</mat-checkbox>
+    </div>
   </div>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-button color="warn" *ngIf="isEditMode" (click)="deleteMovie()" style="margin-right: auto;">Löschen</button>
+<mat-dialog-actions align="end" class="dialog-footer">
+  <button mat-button color="warn" class="danger-btn" *ngIf="isEditMode" (click)="deleteMovie()">
+    <mat-icon>delete</mat-icon> Löschen
+  </button>
 
-  <button mat-button (click)="cancel()">Abbrechen</button>
-  <button mat-raised-button color="primary" (click)="save()" [disabled]="!movieData.title || !movieData.year">Speichern</button>
+  <div style="flex: 1"></div>
+
+  <button mat-button class="text-muted" (click)="cancel()">Abbrechen</button>
+  <button mat-flat-button class="action-btn primary" (click)="save()" [disabled]="!movieData.title || !movieData.year">Speichern</button>
 </mat-dialog-actions>
