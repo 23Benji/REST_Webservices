@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ClearDialog } from './clear-dialog';
+import { ClearDialogComponent } from './clear-dialog';
 
-describe('ClearDialog', () => {
-  let component: ClearDialog;
-  let fixture: ComponentFixture<ClearDialog>;
+describe('ClearDialogComponent', () => {
+  let component: ClearDialogComponent;
+  let fixture: ComponentFixture<ClearDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ClearDialog]
+      imports: [ClearDialogComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ClearDialog);
+    fixture = TestBed.createComponent(ClearDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

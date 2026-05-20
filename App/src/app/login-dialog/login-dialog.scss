@@ -45,7 +45,6 @@ h2[mat-dialog-title] {
   margin-bottom: 20px;
   font-size: 0.85rem;
 
-  /* Sauberes SCSS-Nesting für das Icon */
   mat-icon {
     flex: 0 0 auto; /* Verhindert das Schrumpfen (flex-shrink: 0) */
     width: 24px;

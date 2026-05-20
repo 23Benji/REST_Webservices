@@ -5,7 +5,6 @@ import { jwtDecode } from 'jwt-decode'; // Zum Dekodieren des JWTs
 import moment from 'moment';
 const URL = 'http://localhost:8080';
 
-// Definiere die Inhalte unserer Payload (wie im Node-Backend festgelegt)
 export interface MyPayload {
   username: string;
   exp: number;

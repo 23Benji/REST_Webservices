@@ -23,7 +23,7 @@ export class MovieListComponent implements OnInit {
     private movieService: MovieService,
     public authService: JwtAuthService,
     private dialog: MatDialog // Dialog-Service injiziert
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadMovies();

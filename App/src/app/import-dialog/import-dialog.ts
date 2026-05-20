@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatIconModule } from '@angular/material/icon'; // Hinzugefügt
+import { MatIconModule } from '@angular/material/icon';
 import { MovieService } from '../movie.service';
 
 @Component({

@@ -29,29 +29,28 @@ export class MovieService {
     }
   }
 
-  // --- NEUE METHODEN ---
 
-  // 1. Neuen Film hinzufügen (POST)
+  // Film hinzufügen (POST)
   addMovie(movie: Partial<Movie>): Observable<Movie> {
     return this.http.post<Movie>(URL, movie);
   }
 
-  // 2. Bestehenden Film ändern (PUT)
+  // Bestehenden Film ändern (PUT)
   updateMovie(oldId: number, movie: Movie): Observable<Movie> {
     return this.http.put<Movie>(`${URL}/${oldId}`, movie);
   }
 
-  // 3. Einzelnen Film löschen (DELETE)
+  // Einzelnen Film löschen (DELETE)
   deleteMovie(id: number): Observable<void> {
     return this.http.delete<void>(`${URL}/${id}`);
   }
 
-  // 4. Alle eigenen Filme löschen (DELETE)
+  // Alle eigenen Filme löschen (DELETE)
   clearMovies(): Observable<void> {
     return this.http.delete<void>(`${URL}/clear`);
   }
 
-  // 5. Filme importieren (POST)
+  // Filme importieren (POST)
   importMovies(movies: any[]): Observable<void> {
     return this.http.post<void>(`${URL}/import`, movies);
   }
